@@ -5,13 +5,6 @@ import { Queue } from 'aws-cdk-lib/aws-sqs';
 
 const app = new cdk.App();
 
-PipelineBlueprint.builder().addStack({
-  provide: (context) => {
-    // Create your stacks here.  Note that the scope parameter must be `context.scope`, not `app`
-    new MyStack(context.scope, `${context.blueprintProps.applicationName}MyStack`);
-  }
-}).synth(app);
-
 export class MyStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
@@ -20,3 +13,11 @@ export class MyStack extends cdk.Stack {
 
   }
 }
+
+PipelineBlueprint.builder().addStack({
+  provide: (context) => {
+    // Create your stacks here.  Note that the scope parameter must be `context.scope`, not `app`
+    new MyStack(context.scope, `${context.blueprintProps.applicationName}MyStack`);
+  }
+}).synth(app);
+
